@@ -1,0 +1,20 @@
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . index.php
+
+<FilesMatch ".(gif|jpg|jpeg|png)$">
+  Header set Cache-Control "max-age=2592000"
+</FilesMatch>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    ExpiresByType image/gif "access plus 2 months"
+    ExpiresByType image/jpeg "access plus 2 months"
+</IfModule>
