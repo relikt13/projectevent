@@ -18,11 +18,7 @@ class UserController extends Controller
 {
 
     public function actionIndex(){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
+
         $user  = User::findOne(['id'=>Yii::$app->user->identity->id]);
         $way = Yii::getAlias('@web').$user->image;
         if ($user->load(Yii::$app->request->post()) ) {

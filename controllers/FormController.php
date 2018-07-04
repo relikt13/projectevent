@@ -20,11 +20,7 @@ use yii\web\Controller;
 class FormController extends Controller
 {
     public function actionCreate($id){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
+
             if (Yii::$app->request->isPost) {
                 $post = Yii::$app->request->post();
 
@@ -58,11 +54,6 @@ class FormController extends Controller
     }
 
     public function actionAnswer($id){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
         $lines = Formline::find()->where(['form_id'=>$id])->all();
         $form  = Formtable::findOne($id);
         if(Yii::$app->request->isPost){
@@ -95,11 +86,6 @@ class FormController extends Controller
 
 
     public function actionTable($id){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
         $form  = Formtable::findOne($id);
         $userforms = Userform::find()->where(['form_id'=>$id])->all();
         return $this->render('table',[
@@ -109,11 +95,7 @@ class FormController extends Controller
     }
 
     public function actionShow($id){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
+
         $answers = Formanswer::find()->where(['userform_id'=>$id])->all();
 
         $lines = [];

@@ -107,11 +107,7 @@ class PageController extends Controller
     }
 
     public function actionCreate(){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'404 page not found'
-            ]);
-        }
+
         $model = new Page();
         $category = ArrayHelper::map(Category::find()->all(),'id','name');
 
@@ -142,11 +138,7 @@ class PageController extends Controller
 
     public function actionUpdate($slug)
     {
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
+
         $page = Page::findOne(['slug'=>$slug]);
         $forms = Formtable::find()->where(['page_id'=>$page->id])->all();
         $way = Yii::getAlias('@web').$page->image;
@@ -195,11 +187,7 @@ class PageController extends Controller
     }
 
     public function actionAddlay($id){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
+
         $lay = new Lay();
         $page = Page::findOne(['id'=>$id]);
         $lay->page_id = $id;
@@ -209,11 +197,7 @@ class PageController extends Controller
     }
 
     public function actionDellay($id){
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
+
         $lay = Lay::findOne(['page_id'=>$id,'user_id'=>Yii::$app->user->identity->id]);
         $page = Page::findOne(['id'=>$id]);
 

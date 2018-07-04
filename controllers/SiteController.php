@@ -96,11 +96,7 @@ class SiteController extends Controller
 
     public function actionMyproject($login)
     {
-        if(Yii::$app->user->isGuest){
-            return $this->render('/site/error',[
-                'message'=>'403'
-            ]);
-        }
+
         $user = User::findOne(['login'=>$login]);
         $query = Page::find()->where(['user_id' => $user->id]);
         $countQuery = clone $query;
@@ -168,28 +164,14 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
 
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Displays about page.
      *
      * @return string
      */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+
 
     public function actionMylay(){
         $models  = (new Query())->select('*')->from('lay')
